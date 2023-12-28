@@ -1,0 +1,84 @@
+"""
+LC 015 : 3Sum
+
+Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that  `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
+
+Notice that the solution set must not contain duplicate triplets.
+
+Example 1:
+
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+Explanation:
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+The distinct triplets are [-1,0,1] and [-1,-1,2].
+Notice that the order of the output and the order of the triplets does not matter.
+
+Example 2:
+
+Input: nums = [0,1,1]
+Output: []
+Explanation: The only possible triplet does not sum up to 0.
+
+Example 3:
+
+Input: nums = [0,0,0]
+Output: [[0,0,0]]
+Explanation: The only possible triplet sums up to 0.
+
+Constraints:
+
+    3 <= nums.length <= 3000
+    -105 <= nums[i] <= 105
+
+"""
+# 50 - 28
+def solution(nums):
+    nums.sort()
+    rv = []
+    for i in range(0, len(nums) - 2):
+        if i > 0 and nums[i]==nums[i-1]:
+            continue
+        #si = nums[i]
+        j = i+1
+        k = len(nums) - 1
+        while j < k:
+            if j > i+1 and nums[j]==nums[j-1]:
+                j += 1
+                continue
+            if k < len(nums) - 1 and nums[k]==nums[k+1]:
+                k -= 1
+                continue
+            if nums[j] + nums[k] < -nums[i]:
+                j += 1
+                continue
+            if nums[j] + nums[k] > -nums[i]:
+                k -= 1
+                continue
+            rv.append([nums[i], nums[j], nums[k]])
+            j += 1
+        #for j in range(i+1, len(nums) - 1):
+        #    if j > i+1 and nums[j]==nums[j-1]:
+        #        continue
+        #    sj = si + nums[j]
+        #    for k in range(j+1, len(nums)):
+        #        if k > j+1 and nums[k]==nums[k-1]:
+        #            continue
+        #        sk = sj + nums[k]
+        #        if sk==0:
+        #            rv.append([nums[i], nums[j], nums[k]])
+    return rv
+
+nums = [-1,0,1,2,-1,-4]
+print(solution(nums))
+# Output: [[-1,-1,2],[-1,0,1]]
+
+nums = [0,1,1]
+print(solution(nums))
+# Output: []
+
+nums = [0,0,0]
+print(solution(nums))
+# Output: [[0,0,0]]
