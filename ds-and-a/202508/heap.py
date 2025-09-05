@@ -69,19 +69,20 @@ def sift_up(heap):
 
 if __name__=="__main__":
     a = lambda: [3, 8, 2, 38, 83, 24, 8, 6, 72]
+    is_minheap = False
 
     # testing heapify, sort
     t = a()
     heapify(t)
     sort(t)
     print(t)
-    assert t==sorted(a())
+    assert t==sorted(a(), reverse=is_minheap)
 
     # testing build, push
     t = build(a())
     sort(t)
     print(t)
-    assert t==sorted(a())
+    assert t==sorted(a(), reverse=is_minheap)
 
     # testing pop
     t = a()
@@ -93,4 +94,5 @@ if __name__=="__main__":
         except IndexError:
             break
     print(acc)
-    assert acc==sorted(a(), reverse=True)
+    assert list(reversed(acc))==sorted(a(), reverse=is_minheap)
+
