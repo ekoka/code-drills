@@ -83,11 +83,6 @@ def simplified(path):
         tokens.append(t)
     return "/" + "/".join(tokens)
 
-
-
-
-        
-
 if __name__=='__main__':
     path = "/home/"
     exp = "/home"
